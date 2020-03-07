@@ -1,16 +1,27 @@
 <?
 /**
  * PhpFileSql 
- * - мини система управления базами данных (БД).
- *  Каждая БД это отдельный файл зашифрованный, нужен правильный логин и пароль 
- *  что бы открыть содержимое. Желательно что бы раздел с БД был выше чем веб 
- *  пространство проекта. 
+ * (ru) - мини система управления базами данных (БД).
+ *        Каждая БД это отдельный файл зашифрованный, нужен правильный логин и пароль 
+ *        что бы открыть содержимое. Желательно что бы раздел с БД был выше чем веб 
+ *        пространство проекта. 
  * 
- *  Большинство методов если возвращают false, кладут текст ошибки 
- *   в свойство textErrors а метод showErrors() выведет текст ошибки
+ *        Большинство методов если возвращают false, кладут текст ошибки 
+ *         в свойство textErrors а метод showErrors() выведет текст ошибки
  * 
- * сокращения везде ниже:
- *  БД - база данных
+ *        сокращения в комментариях ниже:
+ *         БД - база данных
+ * 
+ * (en) - mini database management system (DB).
+ *        Each database is a separate file encrypted, you need the correct login and password
+ *        to open the contents. It is desirable that the database partition be higher than the web
+ *        project space.
+ * 
+ *        Most methods, if they return false, put the error text
+ *         in the textErrors property and the showErrors () method will output the error text
+ * 
+ *        Abbreviations in the comments below
+ *         DB - database
  * 
  * @author ssv32 <ssv_32@mail.ru>
  * @version 0.1
@@ -19,7 +30,9 @@ class PhpFileSql {
 
     /**
      * $daseTemplateDataBase 
-     *  - базовый шаблон БД (нужен для создания новой БД)
+     *  (ru) - базовый шаблон БД (нужен для создания новой БД)
+     * 
+     *  (en) - basic database template (needed to create a new database)
      * 
      * @var array 
      */
@@ -30,7 +43,9 @@ class PhpFileSql {
     
     /**
      * $typeMethodsCipher 
-     *  - метод шифрования текста в файле
+     *  (ru) - метод шифрования текста в файле
+     * 
+     *  (en) - method for encrypting text in a file
      * 
      * @var string 
      */
@@ -38,7 +53,9 @@ class PhpFileSql {
 
     /**
      * $flagConnectDb 
-     *  - флаг true если было удачное подключение к БД
+     *  (ru) - флаг true если было удачное подключение к БД
+     * 
+     *  (en) - true flag if there was a successful connection to the database
      * 
      * @var boolean 
      */
@@ -46,8 +63,11 @@ class PhpFileSql {
     
     /**
      * $urlDbs
-     *  - путь на сервере, до раздела где будут файлы с базами данных
-     *  ! желательно что бы файлы были в не веб пространства проекта
+     *  (ru) - путь на сервере, до раздела где будут файлы с базами данных
+     *         ! желательно что бы файлы были в не веб пространства проекта
+     *  
+     *  (en) - path on the server, to the section where the database files will be
+     *         ! it is desirable that the files are in non-web space of the project
      * 
      * @var string 
      */
@@ -55,9 +75,13 @@ class PhpFileSql {
     
     /**
      * $prefixNameFileDb
-     *  - префикс у файла которые хранят данные базы данных. 
-     *  пример как будет называться файл в котором лежит БД 
-     *  phpFileDb_<имя БД>
+     *  (ru) - префикс у файла которые хранят данные базы данных. 
+     *         пример как будет называться файл в котором лежит БД 
+     *         phpFileDb_<имя БД>
+     * 
+     *  (en) - the prefix of the file that stores the database data.
+     *         example database file name
+     *         phpFileDb_<database name>
      * 
      * @var string 
      */
@@ -65,9 +89,10 @@ class PhpFileSql {
     
     /**
      * $listErrors
-     *  - массив текстов ошибок (ключ это код ошибки)
-     * текст на Русском языке
-     * 
+     *  (ru) - массив текстов ошибок (ключ это код ошибки)
+     *  
+     *  (en) - array of error texts (the key is the error code)
+     *  
      * @var array 
      */
     private $listErrors = array(
@@ -88,7 +113,9 @@ class PhpFileSql {
     
     /**
      * $textErrors
-     *  - тут будет текст текущей ошибки
+     *  (ru) - тут будет текст текущей ошибки
+     * 
+     *  (en) - here will be the text of the current error
      * 
      * @var string 
      */
@@ -100,10 +127,16 @@ class PhpFileSql {
     
     /**
      * GetMessage 
-     *   - вернёт текст ошибки с кодом $codeMassage
+     *  (ru) - вернёт текст ошибки с кодом $codeMassage
      * 
-     * @param string $codeMassage - код ошибки
-     * @return string - текст ошибки
+     *  (en) - will return an error text with the code $ codeMassage
+     * 
+     * @param string $codeMassage -
+     *   (ru) - код ошибки
+     *   (en) - error code
+     * @return string - 
+     *   (ru) - текст ошибки
+     *   (en) - error text
      */
     private function GetMessage($codeMassage){
         return $this->listErrors[$codeMassage];
@@ -111,7 +144,8 @@ class PhpFileSql {
     
     /**
      * showErrors()
-     *  - выведет текущую ошибку
+     *  (ru) - выведет текущую ошибку
+     *  (en) - will display the current error
      */
     public function showErrors(){
         if(!empty($this->textErrors)){
@@ -123,7 +157,8 @@ class PhpFileSql {
     
     /**
      * $passFile
-     *  - пароль к расшифровки файла БД (к которой идёт подключение)
+     *  (ru) - пароль к расшифровки файла БД (к которой идёт подключение)
+     *  (en) - password to decrypt the database file (to which you are connecting)
      * 
      * @var string 
      */
@@ -131,7 +166,9 @@ class PhpFileSql {
     
     /**
      * $nameDataBase
-     *  - имя текущей БД
+     *  (ru) - имя текущей БД
+     *  
+     *  (en) - name of the current database
      * 
      * @var string 
      */
@@ -139,19 +176,29 @@ class PhpFileSql {
     
     /**
      * $datasDataBase
-     *  - данные текущей БД
+     *  (ru) - данные текущей БД
      *  
+     *  (en) - current database data
+     * 
      * @var array 
      */
     private $datasDataBase; 
     
     /**
      * connect
-     *  - подключение к БД (к файлу БД)
+     *  (ru) - подключение к БД (к файлу БД)
      * 
-     * @param string $login - логин
-     * @param string $pass - пароль
-     * @param string $nameDataBase - имя БД
+     *  (en) - connection to the database (to the database file)
+     * 
+     * @param string $login - 
+     *        (ru) - логин
+     *        (en) - login
+     * @param string $pass - 
+     *        (ru) - пароль
+     *        (en) - password
+     * @param string $nameDataBase - 
+     *        (ru) - имя БД
+     *        (en) - DB name
      * @return boolean
      */
     public function connect($login, $pass, $nameDataBase){
@@ -177,9 +224,13 @@ class PhpFileSql {
     
     /**
      * searchDb 
-     *  - поиск файла БД, проверит есть ли файл
+     *  (ru) - поиск файла БД, проверит есть ли файл
+     *  
+     *  (en) - database file search, check if there is a file
      * 
-     * @param string $nameDataBase - имя БД
+     * @param string $nameDataBase - 
+     *        (ru) - имя БД
+     *        (en) - DB name
      * @return boolean true/false
      */
     public function searchDb($nameDataBase){       
@@ -188,21 +239,28 @@ class PhpFileSql {
     
     /**
      * openFileDb
-     *  - открытие файла БД 
+     *  (ru) - открытие файла БД 
      * 
-     * @param string $nameDataBase - имя БД
+     *  (en) - open DB file
+     * 
+     * @param string $nameDataBase - 
+     *        (ru) - имя БД
+     *        (en) - DB name
      * @return boolean
      */
     private function openFileDb($nameDataBase){
         
-        // взять данные из файла
+        // (ru) - взять данные из файла
+        // (en) - take data from file
         $data = file_get_contents($this->urlDbs.$this->prefixNameFileDb.$nameDataBase);
                
-        // расшифровать данные
+        // (ru) - расшифровать данные
+        // (en) - decrypt data
         $decryptDate = $this->decryptDate($data);
                 
         if($decryptDate !== false){
-            // записать расшифрованные данные должны быть массив
+            // (ru) - записать расшифрованные данные должны быть массив
+            // (en) - write decrypted data should be an array
             $this->datasDataBase = json_decode( $decryptDate, true );
             $result = true;
         }else{
@@ -214,15 +272,20 @@ class PhpFileSql {
     
     /**
      * decryptDate
-     *  - расшифровать данные из файла БД
+     *  (ru) - расшифровать данные из файла БД
      * 
-     * @param string $date - строка с данными из файла
+     *  (en) - decrypt data from a database file
+     * 
+     * @param string $date - 
+     *        (ru) - строка с данными из файла
+     *        (en) - line with data from the file
      * @return boolean/string
      */
     private function decryptDate($date){
         $result = false;
         if(!empty($this->passFile)){
-            // расшифровка
+            // (ru) - расшифровка
+            // (en) - decryption
             $result = openssl_decrypt($date, $this->typeMethodsCipher, $this->passFile);    
         }else{
             $this->textErrors = $this->GetMessage('err_empty_pass');
@@ -233,7 +296,9 @@ class PhpFileSql {
     
     /**
      * saveDbInFile
-     *  - сохранить текущую БД в файл
+     *  (ru) - сохранить текущую БД в файл
+     * 
+     *  (en) - save current database to file
      * 
      * @return boolean 
      */
@@ -244,7 +309,8 @@ class PhpFileSql {
                 $data = $this->encryptDate( json_encode( $this->datasDataBase) );
                 
                 if ($data !==  false){
-                    // сохраняем в файл
+                    // (ru) сохраняем в файл
+                    // (en) save to file
                     $res = file_put_contents($this->urlDbs.$this->prefixNameFileDb.$this->nameDataBase, $data);
                                         
                     if($res !== false){
@@ -270,7 +336,9 @@ class PhpFileSql {
     
     /**
      * saveDbInFile
-     *  - сохранить данные БД в файл
+     *  (ru) - сохранить данные БД в файл
+     * 
+     *  (en) - save database data to file
      * 
      * @return boolean 
      */
@@ -280,7 +348,9 @@ class PhpFileSql {
     
     /**
      * encryptDate
-     *  - зашифровать данные
+     *  (ru) - зашифровать данные
+     * 
+     *  (en) - encrypt data
      * 
      * @param string $date
      * @return boolean
@@ -298,7 +368,9 @@ class PhpFileSql {
     
     /**
      * close 
-     *  - закрыть текущее подключение к БД
+     *  (ru) - закрыть текущее подключение к БД
+     * 
+     *  (en) - close the current database connection
      * 
      * @return boolean
      */
@@ -319,7 +391,9 @@ class PhpFileSql {
     
     /**
      * createDataBase 
-     *  - создать БД (файл БД) и открыть методом connect
+     *  (ru) - создать БД (файл БД) и открыть методом connect
+     * 
+     *  (en) - create a database (database file) and open the connect method
      * 
      * @param string $login
      * @param string $pass
@@ -332,7 +406,8 @@ class PhpFileSql {
         
         $data = $this->encryptDate(json_encode( $this->daseTemplateDataBase) );
         if ($data !==  false){
-            // сохраняем в файл
+            // (ru) - сохраняем в файл
+            // (en) - save to file
             $res = $this->saveDbInFile($this->urlDbs.$this->prefixNameFileDb.$nameDataBase, $data);
 
             if($res !== false){
@@ -352,7 +427,9 @@ class PhpFileSql {
     
     /**
      * deleteDataBase
-     *  - удалить БД (файл БД) если данные авторизации верны
+     *  (ru) - удалить БД (файл БД) если данные авторизации верны
+     * 
+     *  (en) - delete the database (database file) if the authorization data is correct
      * 
      * @param string $login
      * @param string $pass
@@ -363,10 +440,12 @@ class PhpFileSql {
         $result = false;
         if ($this->searchDb($nameDataBase)){
                         
-            // взять данные из файла
+            // (ru) - взять данные из файла
+            // (en) - take data from file
             $data = file_get_contents($this->urlDbs.$this->prefixNameFileDb.$nameDataBase);
             
-            // расшифровать данные
+            // (ru) - расшифровать данные
+            // (en) - decrypt data
             $passDb = md5($login).md5($pass).md5($nameDataBase);
             
             $decryptDate = openssl_decrypt($data, $this->typeMethodsCipher, $passDb); 
@@ -376,7 +455,8 @@ class PhpFileSql {
                 $data = json_decode( $decryptDate, true );
                 
                 if ($data['testDecrypt'] == true){
-                    // удалить файл
+                    // (ru) - удалить файл
+                    // (en) - delete file
                     $res = unlink($this->urlDbs.$this->prefixNameFileDb.$nameDataBase);
                     
                     if($res){
@@ -402,7 +482,9 @@ class PhpFileSql {
       
     /**
      * getDataBases
-     *  - получить массив со всеми имеющимися БД
+     *  (ru) - получить массив со всеми имеющимися БД
+     * 
+     *  (en) - get an array with all available databases
      * 
      * @return array
      */
@@ -422,8 +504,11 @@ class PhpFileSql {
     
     /**
      * getAllTables 
-     *  - вернёт массив со всеми имеющимися в БД таблицами 
-     *  (false - если произошла ошибка)
+     *  (ru) - вернёт массив со всеми имеющимися в БД таблицами 
+     *         (false - если произошла ошибка)
+     * 
+     *  (en) - will return an array with all the tables in the database
+     *         (false - if an error occurred)
      * 
      * @return false/array
      */
@@ -440,10 +525,16 @@ class PhpFileSql {
     
     /**
      * createTable
-     *  - создать таблицу
+     *  (ru) - создать таблицу
      * 
-     * @param string $tableName - имя таблицы
-     * @param array $arrayColumns - массив с именами столбцов
+     *  (en) - create table
+     * 
+     * @param string $tableName - 
+     *        (ru) - имя таблицы
+     *        (en) - table name
+     * @param array $arrayColumns - 
+     *        (ru) - массив с именами столбцов
+     *        (en) - array with column names
      * @return boolean
      */
     public function createTable($tableName, $arrayColumns){
@@ -477,16 +568,21 @@ class PhpFileSql {
     
     /**
      * dropTable
-     *  - удаление таблицы
+     *  (ru) - удаление таблицы
      * 
-     * @param string $nameTable - имя таблицы
+     *  (en) - delete table
+     * 
+     * @param string $nameTable - 
+     *        (ru) - имя таблицы
+     *        (en) - table name
      * @return boolean
      */
     public function dropTable($nameTable){
         $result = false;
         if($this->flagConnectDb){
             if( !empty($this->datasDataBase['tables'][$nameTable])){
-                // удаляем таблицу
+                // (ru) - удаляем таблицу
+                // (en) - delete table
                 unset($this->datasDataBase['tables'][$nameTable]);
             }else{
                 $this->textErrors = $this->GetMessage('err_drop_table_not_table');
@@ -501,10 +597,16 @@ class PhpFileSql {
     
     /**
      * renameTable 
-     *  - переименовать таблицу
+     *  (ru) - переименовать таблицу
      * 
-     * @param string $nameTable - старое название таблицы
-     * @param string $newNameTable - новое название таблицы
+     *  (en) - rename table
+     * 
+     * @param string $nameTable - 
+     *        (ru) - старое название таблицы
+     *        (en) - old table name
+     * @param string $newNameTable - 
+     *        (ru) - новое название таблицы
+     *        (en) - new table name
      * @return boolean
      */
     public function renameTable($nameTable, $newNameTable){
@@ -512,10 +614,12 @@ class PhpFileSql {
         if($this->flagConnectDb){
             if( empty($this->datasDataBase['tables'][$newNameTable])){
                 
-                // создать таблицу с новым названием
+                // (ru) - создать таблицу с новым названием
+                // (en) - create a table with a new name
                 $this->datasDataBase['tables'][$newNameTable] = $this->datasDataBase['tables'][$nameTable];
                 
-                // удаляем таблицу со старым названием 
+                // (ru) - удаляем таблицу со старым названием 
+                // (en) - delete the table with the old name
                 unset($this->datasDataBase['tables'][$nameTable]);
                 
             }else{
@@ -531,16 +635,23 @@ class PhpFileSql {
     
     /**
      * alterTable
-     *  - добавить новые столбцы
+     *  (ru) - добавить новые столбцы
      * 
-     * @param string $nameTable - имя таблицы
-     * @param array $arrayNewColumns - массив с новыми столбцами
+     *  (en) - add new columns
+     * 
+     * @param string $nameTable - 
+     *        (ru) - имя таблицы
+     *        (en) - table name
+     * @param array $arrayNewColumns - 
+     *        (ru) - массив с новыми столбцами
+     *        (en) - array with new columns
      * @return boolean
      */
     public function alterTable($nameTable, $arrayNewColumns){
         if($this->flagConnectDb){
             if(!empty($this->datasDataBase['tables'][$nameTable])){
-                // определить есть ли уже новые поля в БД
+                // (ru) - определить есть ли уже новые поля в БД
+                // (en) - determine if there are already new fields in the database
                 $arrayEmptyColums = false;
                 foreach ($this->datasDataBase['tables'][$nameTable]['columns'] as $value) {
                     if( in_array($value['name'], $arrayNewColumns ) ){
@@ -574,9 +685,12 @@ class PhpFileSql {
         
     /**
      * isOneVersionWhere 
-     *  - проверит соответствует ли условие, условию как ниже (первый вариант)
-     *  (пока поддерживается только сравнение и не рано '=', '!=' )
+     *  (ru) - проверит соответствует ли условие, условию как ниже (первый вариант)
+     *         (пока поддерживается только сравнение и не рано '=', '!=' )
      *  
+     *  (en) - will check whether it matches the condition, the condition as below (first option)
+     *         (so far only comparison is supported and not early '=', '! =')
+     * 
      *  $where = array(
      *    '=' => array(
      *       'login',
@@ -584,7 +698,9 @@ class PhpFileSql {
      *    )
      *  ) 
      * 
-     * @param array $where - условие (пример выше, что то типа дерева)
+     * @param array $where - 
+     *        (ru) - условие (пример выше, что то типа дерева)
+     *        (en) - condition (example above, something like a tree)
      * @return boolean
      */        
     private function isOneVersionWhere($where){
@@ -603,9 +719,12 @@ class PhpFileSql {
     
     /**
      * isTwoVersionWhere 
-     *  - проверит соответствует ли условие, условию как ниже (второй вариант)
-     *  (пока поддерживается только сравнение и не рано '=', '!=' и связки 'AND', 'OR' )
+     *  (ru) - проверит соответствует ли условие, условию как ниже (второй вариант)
+     *         (пока поддерживается только сравнение и не рано '=', '!=' и связки 'AND', 'OR' )
      *  
+     *  (ru) - will check whether the condition matches the condition as below (second option)
+     *         (so far only comparison is supported and not early '=', '! =' and the 'AND', 'OR' connectives)
+     * 
      *  $where = array(
      *      'OR' => array(
      *          '=' => array(
@@ -623,7 +742,9 @@ class PhpFileSql {
      *      )    
      *  ) 
      * 
-     * @param array $where - условие (пример выше, что то типа дерева)
+     * @param array $where - 
+     *        (ru) - условие (пример выше, что то типа дерева)
+     *        (en) - condition (example above, something like a tree)
      * @return boolean
      */ 
     private function isTwoVersionWhere($where){
@@ -641,13 +762,14 @@ class PhpFileSql {
         }
         return $result;
     }
-    
-    // если условия 1 вого варианта
-    
+        
     /**
      * getStrOneTypeWhere
-     *  - соберёт строчку с условием определённого вида,
-     *  для условий из массива $where (метода например select) 1 варианта
+     *  (ru) - соберёт строчку с условием определённого вида,
+     *         для условий из массива $where (метода например select) 1 варианта
+     * 
+     *  (en) - will collect a line with a condition of a certain kind,
+     *         for conditions from the array $where (for example, select parameters) 1 option
      * 
      * @param array $where
      * @return string
@@ -664,8 +786,11 @@ class PhpFileSql {
     
     /**
      * getStrOneTypeWhere
-     *  - соберёт строчку с условием определённого вида,
-     *  для условий из массива $where (метода например select) 2 варианта
+     *  (ru) - соберёт строчку с условием определённого вида,
+     *         для условий из массива $where (метода например select) 2 варианта
+     * 
+     *  (en) - will collect a line with a condition of a certain kind,
+     *         for conditions from the array $where (for example, select parameters) 2 option
      * 
      * @param array $where
      * @return string
@@ -686,13 +811,23 @@ class PhpFileSql {
     
     /**
      * select
-     *  - выбрать значения из таблицы
+     *  (ru) - выбрать значения из таблицы
      * 
-     * @param string $nameTable - имя таблицы
-     * @param array/string $arrayNameColumns - поля которые нужно вернуть
-     * @param array $where - условие выборки - выше есть примеры
-     * @return array/boolean - вернёт false если неудача или массив со значениями
-     */
+     *  (en) - select values ​​from table
+     * 
+     * @param string $nameTable - 
+     *        (ru) - имя таблицы
+     *        (en) - table name
+     * @param array/string $arrayNameColumns - 
+     *        (ru) - поля которые нужно вернуть
+     *        (en) - fields to be returned
+     * @param array $where - 
+     *        (ru) - условие выборки - выше есть примеры
+     *        (en) - sampling condition - there are examples above
+     * @return array/boolean - 
+     *        (ru) - вернёт false если неудача или массив со значениями
+     *        (en) - will return false if failure or an array with values
+     */ 
     public function select($nameTable, $arrayNameColumns = '*', $where = false ){
         $result = false;
         if($this->flagConnectDb){
@@ -700,7 +835,8 @@ class PhpFileSql {
                 
                 $result = array();
                 
-                // выбрать нужные поля
+                // (ru) - выбрать нужные поля
+                // (en) - select the required fields
                 foreach ($this->datasDataBase['tables'][$nameTable]['row'] as $key => $value) {
                     if( ($arrayNameColumns !== '*') && is_array($arrayNameColumns)){
                         
@@ -713,18 +849,23 @@ class PhpFileSql {
                     }
                 }
                 
-                // взять нужное по условию
+                // (ru) - взять нужное по условию
+                // (en) - take the necessary conditionally
                 if($where != false){
                     
                     $strWhere = '';
                     if($this->isOneVersionWhere($where) ){
-                        // если условия 1 варианта
+                        // (ru) - если условия 1 варианта
+                        // (en) - if conditions 1 options
                         $strWhere = '$flag = '.$this->getStrOneTypeWhere($where).';';
                         
                     }elseif($this->isTwoVersionWhere($where) ){
-                        // если условие 2 варианта
+                        // (ru) - если условие 2 варианта
+                        // (en) - if condition 2 options
                         $strWhere = '$flag = ('.$this->getStrTwoTypeWhere($where).');';
-                    } // остальное пока не поддерживается
+                    } 
+                    // (ru) - остальное пока не поддерживается
+                    // (en) - the rest is not yet supported
                                         
                     if($strWhere != ''){
                                                 
@@ -732,7 +873,8 @@ class PhpFileSql {
                             $flag = false;
                             eval($strWhere);
                                   
-                            // если данные не подходят под условия то убрать их
+                            // (ru) - если данные не подходят под условия то убрать их
+                            // (en) - if the data does not fit the conditions 
                             if( !$flag ){
                                 unset($result[$key]);
                             }
@@ -752,11 +894,14 @@ class PhpFileSql {
     
     /**
      * insertInto
-     *  - добавить строку в таблицу
+     *  (ru) - добавить строку в таблицу
+     * 
+     *  (en) - add row to table
      * 
      * @param string $nameTable
-     * @param array $arrayProperty - массив значений 
-     *   (<название столбца> => <значение>)
+     * @param array $arrayProperty - 
+     *        (ru) - массив значений (<название столбца> => <значение>)
+     *        (en) - array of values ​​(<column name> => <value>)
      * @return boolean
      */
     public function insertInto($nameTable, $arrayProperty){
@@ -764,9 +909,15 @@ class PhpFileSql {
         if($this->flagConnectDb){
             if(!empty($this->datasDataBase['tables'][$nameTable])){
                 
-                // находим столбцы присланные в метод какие есть в таблице 
-                //  (если присланы в метод но их нет то не создадутся)
-                //  (которые не указаны создадутся как пустые)
+                /**
+                 * (ru) - находим столбцы присланные в метод какие есть в таблице 
+                 *        (если присланы в метод но их нет то не создадутся)
+                 *        (которые не указаны создадутся как пустые)
+                 * 
+                 * (en) - we find the columns sent to the method which are in the table
+                 *        (if sent to the method but they are not there, they won’t be created)
+                 *        (which are not specified will be created as empty)
+                 */
                 $arrayTrueProperty = array();
                 foreach ($this->datasDataBase['tables'][$nameTable]['columns'] as $value) {
                     if(!empty($arrayProperty[$value['name']])){
@@ -790,12 +941,19 @@ class PhpFileSql {
     
     /**
      * update 
-     *  - обновить строку в таблице
+     *  (ru) - обновить строку в таблице
      * 
-     * @param string $nameTable - имя таблицы
-     * @param array $arrayProperty -  - массив значений 
-     *   (<название столбца> => <значение>)
-     * @param array $where - условие все какие поддерживает метод select
+     *  (en) - update row in table
+     * 
+     * @param string $nameTable - 
+     *        (ru) - имя таблицы
+     *        (en) - table name
+     * @param array $arrayProperty -  
+     *        (ru) - массив значений (<название столбца> => <значение>)
+     *        (en) - array of values ​​(<column name> => <value>)
+     * @param array $where - 
+     *        (ru) - условие все какие поддерживает метод select
+     *        (en) - all conditions that the select method supports
      * @return boolean
      */
     public function update($nameTable, $arrayProperty, $where){
@@ -803,18 +961,23 @@ class PhpFileSql {
         if($this->flagConnectDb){
             if(!empty($this->datasDataBase['tables'][$nameTable])){
                 
-                // взять нужное по условию
+                // (ru) - взять нужное по условию
+                // (en) - take the necessary conditionally
                 if( !empty($where) ){
                     
                     $strWhere = '';
                     if($this->isOneVersionWhere($where) ){
-                        // если условия 1 варианта
+                        // (ru) - если условия 1 варианта
+                        // (en) - 1 option
                         $strWhere = '$flag = '.$this->getStrOneTypeWhere($where).';';
                         
                     }elseif($this->isTwoVersionWhere($where) ){
-                        // если условие 2 варианта
+                        // (ru) - если условие 2 варианта
+                        // (en) - 2 option
                         $strWhere = '$flag = ('.$this->getStrTwoTypeWhere($where).');';
-                    } // остальное пока не поддерживается
+                    } 
+                    // (ru) - остальное пока не поддерживается
+                    // (en) - the rest is not yet supported
                                                   
                     if($strWhere != ''){
                                                 
@@ -823,7 +986,8 @@ class PhpFileSql {
                             $flag = false;
                             eval($strWhere);
                                                               
-                            // если данные подходят под условия обновить их
+                            // (ru) - если данные подходят под условия обновить их
+                            // (en) - if the data is suitable for the conditions, update them
                             if( $flag ){
                                 foreach ($arrayProperty as $keyUpdateProperty => $valueUpdateProperty) {
                                     if(!empty($this->datasDataBase['tables'][$nameTable]['row'][$key][$keyUpdateProperty])){
@@ -851,10 +1015,16 @@ class PhpFileSql {
        
     /**
      * delete
-     *  - удалить строку таблицы
+     *  (ru) - удалить строку таблицы
      * 
-     * @param string $nameTable - имя таблицы
-     * @param array $where - условие все какие поддерживает метод select
+     *  (en) - delete table row
+     * 
+     * @param string $nameTable - 
+     *        (ru) - имя таблицы
+     *        (en) - table name
+     * @param array $where - 
+     *        (ru) - условие все какие поддерживает метод select
+     *        (en) - all conditions that the select method supports
      * @return boolean
      */
     public function delete($nameTable, $where){
@@ -862,19 +1032,24 @@ class PhpFileSql {
         if($this->flagConnectDb){
             if(!empty($this->datasDataBase['tables'][$nameTable])){
                 
-                 // взять нужное по условию
+                // (ru) - взять нужное по условию
+                // (en) - take the necessary conditionally
                 if( !empty($where) ){
                     
                     $strWhere = '';
                     if($this->isOneVersionWhere($where) ){
-                        // если условия 1 варианта
+                        // (ru) - если условия 1 варианта
+                        // (en) - 1 option
                         $strWhere = '$flag = '.$this->getStrOneTypeWhere($where).';';
                         
                     }elseif($this->isTwoVersionWhere($where) ){
-                        // если условие 2 варианта
+                        // (ru) - если условие 2 варианта
+                        // (en) - 2 option
                         $strWhere = '$flag = ('.$this->getStrTwoTypeWhere($where).');';
-                    } // остальное пока не поддерживается
-                                                  
+                    } 
+                    // (ru) - остальное пока не поддерживается
+                    // (en) - the rest is not yet supported       
+                    
                     if($strWhere != ''){
                                                 
                         foreach ($this->datasDataBase['tables'][$nameTable]['row'] as $key => $value){
@@ -882,7 +1057,8 @@ class PhpFileSql {
                             $flag = false;
                             eval($strWhere);
                                                               
-                            // если данные подходят под условия обновить их
+                            // (ru) - если данные подходят под условия обновить их
+                            // (en) - if the data is suitable for the conditions, update them
                             if( $flag ){
                                 unset($this->datasDataBase['tables'][$nameTable]['row'][$key]);
                             }
@@ -905,7 +1081,8 @@ class PhpFileSql {
     }
     
     /**
-     * при уничтожении объекта БД сохранить в файл БД
+     * (ru) - при уничтожении объекта БД сохранить в файл БД
+     * (en) - after destroying the class object, save the database to the database file
      */
     function __destruct() {
         $this->saveThisDbInFile();
