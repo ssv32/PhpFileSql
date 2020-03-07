@@ -96,19 +96,19 @@ class PhpFileSql {
      * @var array 
      */
     private $listErrors = array(
-        'err_search_file_db' => 'БД не найдена.',
-        'err_empty_pass' => 'не задан пароль.',
-        'err_decrypt' => 'ошибка расшифровки или неправельные авторизационные данные.',
-        'err_this_db' => 'нет текущей БД.',
-        'err_encrypt_date' => 'проблемы с шифрованием текущей БД.',
-        'err_save_db_in_file' => 'проблемы с записью в файл текущей БД.',
-        'err_connect_bd' => 'не было удачного подключения к БД.',
-        'err_delete_file' => 'ошибка удаления файла БД.',
-        'err_create_table_empty' => 'такая таблица уже есть.',
-        'err_drop_table_not_table' => 'удаляемой таблицы не существует.',
-        'err_rename_table_not_table' => 'таблица с новым названием уже есть.',
-        'err_not_table' => 'таблица не найдена.',
-        'err_not_where' => 'не задано условие'
+        'err_search_file_db' => 'БД не найдена (Database not found).',
+        'err_empty_pass' => 'Не задан пароль (No password set).',
+        'err_decrypt' => 'Ошибка расшифровки или неправельные авторизационные данные (Decryption error or incorrect authorization data.).',
+        'err_this_db' => 'Нет текущей БД (No current database).',
+        'err_encrypt_date' => 'Проблемы с шифрованием текущей БД (Problems with encryption of the current database).',
+        'err_save_db_in_file' => 'Проблемы с записью в файл текущей БД (Problems writing to the current database file).',
+        'err_connect_bd' => 'Не было удачного подключения к БД (There was no successful connection to the database).',
+        'err_delete_file' => 'Ошибка удаления файла БД (Error deleting database file).',
+        'err_create_table_empty' => 'Такая таблица уже есть (Such a table already exists).',
+        'err_drop_table_not_table' => 'Удаляемой таблицы не существует (The table being deleted does not exist).',
+        'err_rename_table_not_table' => 'Таблица с новым названием уже есть (A table with a new name is already there).',
+        'err_not_table' => 'Таблица не найдена (Table not found).',
+        'err_not_where' => 'Не задано условие (No condition specified).'
     );
     
     /**
