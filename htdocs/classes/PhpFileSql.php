@@ -839,16 +839,17 @@ class PhpFileSql {
                 
                 // (ru) - выбрать нужные поля
                 // (en) - select the required fields
-                foreach ($this->datasDataBase['tables'][$nameTable]['row'] as $key => $value) {
-                    if( ($arrayNameColumns !== '*') && is_array($arrayNameColumns)){
-                        
+                if( ($arrayNameColumns !== '*') && is_array($arrayNameColumns)){
+                    foreach ($this->datasDataBase['tables'][$nameTable]['row'] as $key => $value) {
+
                         foreach ($arrayNameColumns as $keyRow){
-                            $result[$key][$keyRow] = $value[$keyRow];
+                            if(isset($value[$keyRow])){
+                                $result[$key][$keyRow] = $value[$keyRow];
+                            }
                         }
-                        
-                    }elseif($arrayNameColumns == '*'){
-                        $result[] = $value;
                     }
+                }elseif($arrayNameColumns == '*'){
+                    $result = $this->datasDataBase['tables'][$nameTable]['row'];
                 }
                 
                 // (ru) - взять нужное по условию
