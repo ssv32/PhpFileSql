@@ -987,13 +987,13 @@ class PhpFileSql {
                             
                             $flag = false;
                             eval($strWhere);
-                                                              
+                                 
                             // (ru) - если данные подходят под условия обновить их
                             // (en) - if the data is suitable for the conditions, update them
                             if( $flag ){
                                 foreach ($arrayProperty as $keyUpdateProperty => $valueUpdateProperty) {
-                                    if(!empty($this->datasDataBase['tables'][$nameTable]['row'][$key][$keyUpdateProperty])){
-                                        $this->datasDataBase['tables'][$nameTable]['row'][$key][$keyUpdateProperty] = $valueUpdateProperty;
+                                    if(isset($this->datasDataBase['tables'][$nameTable]['row'][$key][$keyUpdateProperty])){
+                                        $this->datasDataBase['tables'][$nameTable]['row'][$key][$keyUpdateProperty] = $valueUpdateProperty;    
                                     }
                                 }
                             }
