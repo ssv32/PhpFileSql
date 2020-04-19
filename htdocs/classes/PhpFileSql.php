@@ -331,6 +331,7 @@ class PhpFileSql {
             $this->textErrors = $this->GetMessage('err_connect_bd');
             $result = false;
         }
+
         return $result;
     }
     
@@ -377,6 +378,7 @@ class PhpFileSql {
     public function close(){
         $result = false;
         if($this->flagConnectDb == true){
+            $this->saveThisDbInFile();
             $this->flagConnectDb = false;
             $this->passFile = false; 
             $this->nameDataBase = false; 
@@ -553,12 +555,12 @@ class PhpFileSql {
                 
                 $this->datasDataBase['tables'][$tableName]['row'] = array();
                 
+                $result = true;
             }else{
                 $this->textErrors = $this->GetMessage('err_create_table_empty');
                 $result = false;
             }
             
-            $result = true;
         }else{
             $this->textErrors = $this->GetMessage('err_connect_bd');
             $result = false;
