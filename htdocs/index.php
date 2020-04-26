@@ -158,14 +158,18 @@ $phpFileSql->connect($login, $pass, $nameDataBase);
 //    ),
 //    array(
 //        'AND' => array(
-//            '=' => array(
-//                'login',
-//                'qwe111'
+//            array(
+//                '=' => array(
+//                    'login',
+//                    'qwe111'
+//                ),
 //            ),
-//            '!=' => array(
-//                'login',
-//                'qwe123'
-//            )
+//            array(
+//                '!=' => array(
+//                    'login',
+//                    'qwe123'
+//                )
+//            ),
 //        )
 //    ) 
 //);
@@ -239,23 +243,29 @@ $phpFileSql->showErrors();
  *        (two options are available)
  *        the method will return an array with all values
  */
+//
 //$res = $phpFileSql->select(
 //    'testTable', 
 //    '*', 
 //    array(
 //        'OR' => array(
-//            '!=' => array(
-//                'login',
-//                'asd2'
+//            array(
+//                '=' => array(
+//                    'login',
+//                    'asd'
+//                ),
 //            ),
-//            '=' => array(
-//                'login',
-//                'asd'
-//            )
+//            array(
+//                '!=' => array(
+//                    'login',
+//                    'asd3'
+//                )
+//            ),
 //        )
 //            
 //    ) 
 //);
 
-
-
+//echo "res<pre>";
+//print_r($res);
+//echo "</pre>";

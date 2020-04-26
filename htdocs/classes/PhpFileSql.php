@@ -729,17 +729,23 @@ class PhpFileSql {
      * 
      *  $where = array(
      *      'OR' => array(
-     *          '=' => array(
-     *              'login',
-     *              'asd2'
+     *          array(
+     *              '=' => array(
+     *                  'login',
+     *                  'asd2'
+     *              ),
      *          ),
-     *          '!=' => array(
-     *              'login',
-     *              'asd'
+     *          array(
+     *              '!=' => array(
+     *                  'login',
+     *                  'asd'
+     *              ),
      *          ),
-     *          '!=' => array(
-     *              'login',
-     *              'asd'
+     *          array(
+     *              '!=' => array(
+     *                  'login',
+     *                  'asd'
+     *              ),
      *          ),
      *      )    
      *  ) 
@@ -753,8 +759,8 @@ class PhpFileSql {
         $result = true;
         foreach ($where as $key => $value) {
             if(in_array($key, array('OR', 'AND'))){
-                foreach ($value as $key2 => $value2) {
-                    if ( in_array($key2, array('=', '!=' )) && (count($value2) != 2) ){
+                foreach ($value as $value2) {
+                    if(!$this->isOneVersionWhere($value2)){
                         $result = false;
                     }
                 }
@@ -800,12 +806,12 @@ class PhpFileSql {
     private function getStrTwoTypeWhere($where){
         $result = '';
         if( !empty($where['AND']) ){
-            foreach($where['AND'] as $key => $val){
-                $result .= ((!empty($result))? ' && ': '').$this->getStrOneTypeWhere(array( $key => $val) );
+            foreach($where['AND'] as $val){
+                $result .= ((!empty($result))? ' && ': '').$this->getStrOneTypeWhere( $val );
             }
         }elseif( !empty($where['OR'])){
-            foreach($where['OR'] as $key => $val){
-                $result .= ((!empty($result))? ' || ': '').$this->getStrOneTypeWhere(array( $key => $val));
+            foreach($where['OR'] as $val){
+                $result .= ((!empty($result))? ' || ': '').$this->getStrOneTypeWhere($val);
             }
         }
         return $result;
