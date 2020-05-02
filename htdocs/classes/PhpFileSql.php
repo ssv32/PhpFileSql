@@ -548,9 +548,21 @@ class PhpFileSql {
                 $this->datasDataBase['tables'][$tableName]['columns'] = array();
                 
                 foreach ($arrayColumns as $value) {
-                    $this->datasDataBase['tables'][$tableName]['columns'][] = array(
-                        'name' => $value
-                    );
+                    if(!is_array($value)){
+                        $this->datasDataBase['tables'][$tableName]['columns'][] = array(
+                            'name' => $value
+                        );
+                    }else{
+                        
+                        $this->datasDataBase['tables'][$tableName]['columns'][] = array(
+                            'name' => $value[0]
+                        );
+                        
+                        if($value[1] == 'PRIMARY_KEY_AUTO_INCREMENT'){ // add PRIMARY_KEY_AUTO_INCREMENT
+                            $this->datasDataBase['tables'][$tableName]['additional_property_pkai'][$value[0]] = 0;
+                        }
+                        
+                    }
                 }
                 
                 $this->datasDataBase['tables'][$tableName]['row'] = array();
@@ -935,6 +947,15 @@ class PhpFileSql {
                         $arrayTrueProperty[$value['name']] = '';
                     }
                 }
+                
+                if(!empty($this->datasDataBase['tables'][$nameTable]['additional_property_pkai'])){
+                    foreach ($this->datasDataBase['tables'][$nameTable]['additional_property_pkai'] as $key => $value) {
+                        $value++;
+                        $arrayTrueProperty[$key] = $value;
+                        $this->datasDataBase['tables'][$nameTable]['additional_property_pkai'][$key] = $value;
+                    }
+                }
+                
                 $this->datasDataBase['tables'][$nameTable]['row'][] = $arrayTrueProperty;
                 $result = true;
             }else{

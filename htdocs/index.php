@@ -95,7 +95,7 @@ $phpFileSql->connect($login, $pass, $nameDataBase);
  *        (while all columns are of type string(char*) )
  * 
  */  
-//$phpFileSql->createTable('asd2', array('login', 'pass', 'flag'));
+//$phpFileSql->createTable('asd555', array( array('id', 'PRIMARY_KEY_AUTO_INCREMENT' ), 'login', 'pass', 'flag'));
 
 /** 
  * (ru) - удалить таблицу
@@ -119,10 +119,10 @@ $phpFileSql->connect($login, $pass, $nameDataBase);
  *        columns not specified will be filled with empty values
  */ 
 //$phpFileSql->insertInto(
-//    'asd3', 
+//    'asd555', 
 //    array(
-//        'login' => 'qwe12345',
-//        'pass' => 'zxc222qwe'
+//        'login' => '111',
+//        'pass' => '1111'
 //    )
 //);
 
