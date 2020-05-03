@@ -855,20 +855,8 @@ class PhpFileSql {
                 
                 $result = array();
                 
-                // (ru) - выбрать нужные поля
-                // (en) - select the required fields
-                if( ($arrayNameColumns !== '*') && is_array($arrayNameColumns)){
-                    foreach ($this->datasDataBase['tables'][$nameTable]['row'] as $key => $value) {
-
-                        foreach ($arrayNameColumns as $keyRow){
-                            if(isset($value[$keyRow])){
-                                $result[$key][$keyRow] = $value[$keyRow];
-                            }
-                        }
-                    }
-                }elseif($arrayNameColumns == '*'){
-                    $result = $this->datasDataBase['tables'][$nameTable]['row'];
-                }
+                // взят все данные
+                $result = $this->datasDataBase['tables'][$nameTable]['row'];
                 
                 // (ru) - взять нужное по условию
                 // (en) - take the necessary conditionally
@@ -902,6 +890,22 @@ class PhpFileSql {
                         }
                     } 
                 }
+                
+                // (ru) - выбрать нужные поля
+                // (en) - select the required fields
+                if( ($arrayNameColumns !== '*') && is_array($arrayNameColumns)){
+                    foreach ($result as $key => $value) {
+
+                        foreach ($arrayNameColumns as $keyRow){
+                            if(!isset($value[$keyRow])){
+                                unset($result[$key][$keyRow]);
+                            }
+                        }
+                    }
+                }elseif($arrayNameColumns == '*'){
+                    //$result = $this->datasDataBase['tables'][$nameTable]['row'];
+                }
+                
             }else{
                 $this->textErrors = $this->GetMessage('err_not_table');
                 $result = false;
