@@ -25,7 +25,12 @@ PhpFileSql <br/>
         Сокращения в текстах:<br/>
          - БД, база данных;<br/>
          - СУБД, система управления базами данных.<br/>
-
+        <br/>
+        PhpFileSql уже используется :
+        
+- gy php framework ( https://github.com/ssv32/gy )
+       
+        
 -----
 <br/>
  (en) - mini database management system (DBMS) in php.<br/>
@@ -52,3 +57,8 @@ PhpFileSql <br/>
         Abbreviations in the texts:<br/>
          - DB, database;<br/>
          - DBMS, database management system.<br/>
+        <br/>
+        PhpFileSql already in use :
+        
+- gy php framework ( https://github.com/ssv32/gy )
+     
